@@ -14,6 +14,7 @@ func ReadJson(jsonName string) (rawJson []byte, err error) {
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.URL.Path == "/favicon.ico" {
 		return
 	}
@@ -38,7 +39,6 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Error json fille parse err : ", err)
 		return
 	}
-	fmt.Println(data)
 
 	for i := 1; i < len(splitPath); i++ {
 		newData, ok := data.(map[string]interface{})[splitPath[i]]
